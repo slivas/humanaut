@@ -503,7 +503,7 @@
       }
     }
 
-    .implementation__nav-btn .marker__img path {
+    .implementation__nav-btn svg path {
       stroke: #7B7B7D;
     }
   }
@@ -597,6 +597,10 @@
       &-3 {
         display: none;
       }
+    }
+
+    .implementation__nav-btn svg path {
+      stroke: #7B7B7D;
     }
   }
 
@@ -814,7 +818,9 @@
     z-index: 1;
 
     @media (min-width: 1024px) {
-      bottom: 12px;
+      bottom: 40px;
+      gap: 40px;
+      justify-content: flex-end;
     }
 
     @media (min-width: 1780px) {

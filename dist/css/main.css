@@ -709,7 +709,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
     left: calc(50% - 26px);
   }
 }
-.implementation .item-2-active .implementation__nav-btn .marker__img path {
+.implementation .item-2-active .implementation__nav-btn svg path {
   stroke: #7B7B7D;
 }
 .implementation .item-3-active .item-title-3 {
@@ -799,6 +799,9 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 }
 .implementation .item-3-active .marker-3 {
   display: none;
+}
+.implementation .item-3-active .implementation__nav-btn svg path {
+  stroke: #7B7B7D;
 }
 .implementation .item-4-active .item-title-4 {
   display: block;
@@ -1020,7 +1023,9 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 }
 @media (min-width: 1024px) {
   .implementation__nav {
-    bottom: 12px;
+    bottom: 40px;
+    gap: 40px;
+    justify-content: flex-end;
   }
 }
 @media (min-width: 1780px) {

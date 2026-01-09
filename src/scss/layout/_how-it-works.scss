@@ -79,9 +79,12 @@
     }
     color: $black-100;
 
+    @media (min-width: 1024px) {
+      text-align: left;
+    }
+
     @media (min-width: 1280px) {
       margin-bottom: 196px;
-      text-align: left;
       font-size: 40px;
     }
   }

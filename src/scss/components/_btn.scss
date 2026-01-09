@@ -2,7 +2,7 @@
 
 .btn {
   display: inline-flex;
-  padding: 12px 32px;
+  padding: 10px 32px 14px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -14,7 +14,7 @@
 .btn-primary {
   font: {
     family: 'Darker Grotesque', sans-serif;
-    size: 20px;
+    size: 18px;
     weight: 600;
   }
   border-radius: 50px;
@@ -24,7 +24,7 @@
   transition-duration: .25s;
 
   @media (min-width: 1024px) {
-    padding: 15px 40px;
+    padding: 14px 40px 18px;
   }
 
   &:hover {

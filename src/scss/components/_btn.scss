@@ -1,0 +1,54 @@
+@import "../general/theme";
+
+.btn {
+  display: inline-flex;
+  padding: 12px 32px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: $white;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  font: {
+    family: 'Darker Grotesque', sans-serif;
+    size: 20px;
+    weight: 600;
+  }
+  border-radius: 50px;
+  background-image: linear-gradient(180deg, $ember-100 0%, $ember-100 51%, #FEAB69 100%);
+  background-size: 100% 200%;
+  background-position: top center;
+  transition-duration: .25s;
+
+  @media (min-width: 1024px) {
+    padding: 15px 40px;
+  }
+
+  &:hover {
+    background-position: bottom center;
+  }
+}
+
+.btn-option {
+  font-size: 16px;
+  border-radius: 52px;
+  background-color: transparent;
+  box-shadow: 0 4px 19px 0 rgba(14, 14, 14, 0);
+  color: $black-90;
+
+  @media (min-width: 1024px) {
+    &:hover {
+      background-color: $ember-100;
+      color: $white;
+    }
+  }
+
+  &:active {
+    box-shadow: 0 4px 19px 0 rgba(14, 14, 14, .34);
+    background-color: $black-90;
+    color: $white;
+  }
+}

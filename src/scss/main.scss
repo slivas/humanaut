@@ -1,0 +1,18 @@
+@use "general/reset";
+@use "general/fonts";
+@use "general/theme";
+@use "general/general";
+
+/*Components*/
+@use "components/btn";
+
+/*Layout*/
+@use "layout/hero";
+@use "layout/implementation";
+@use "layout/about";
+@use "layout/logo-line";
+@use "layout/how-it-works";
+@use "layout/reviews";
+@use "layout/cta";
+@use "layout/faq";
+@use "layout/health-optimization";

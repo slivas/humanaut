@@ -1,0 +1,150 @@
+@import "../general/theme";
+
+.faq {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: $black-500;
+  color: $white;
+
+  @media (min-width: 1280px) {
+    padding-top: 120px;
+    padding-bottom: 150px;
+  }
+
+   h2 {
+     margin-bottom: 40px;
+     color: $ember-100;
+     text-transform: uppercase;
+     text-align: center;
+     font: {
+       size: 33px;
+       weight: 600;
+     }
+     
+     @media (min-width: 768px) {
+       font-size: 42px;
+     }
+
+     @media (min-width: 1280px) {
+       margin-bottom: 100px;
+       font-size: 55px;
+     }
+   }
+
+  .accordion {
+    .acc-item {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        pointer-events: none;
+        --dash: 10px;
+        --gap: 8px;
+
+        background: repeating-linear-gradient(
+                        90deg,
+                        $black-60 0 var(--dash),
+                        transparent var(--dash) calc(var(--dash) + var(--gap))
+        );
+      }
+
+      &.is-open {
+        .acc-trigger::after {
+          transform: translateY(-50%) rotate(-180deg);
+        }
+      }
+    }
+
+    .acc-trigger {
+      position: relative;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      grid-column-gap: 16px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      padding-right: 56px;
+      font: {
+        family: "Darker Grotesque", sans-serif;
+        size: 24px;
+        weight: 500;
+      }
+      line-height: 1;
+
+      @media (min-width: 768px) {
+        grid-template-columns: 60px 1fr;
+        padding-top: 48px;
+        padding-bottom: 48px;
+        font-size: 32px;
+      }
+
+      @media (min-width: 1024px) {
+        grid-template-columns: 38vw 1fr;
+        grid-column-gap: 0;
+        cursor: pointer;
+      }
+
+      @media (min-width: 1280px) {
+        padding-right: 160px;
+      }
+
+      @media (min-width: 1440px) {
+        grid-template-columns: 1fr 766px;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%) rotate(0);
+        width: 24px;
+        height: 24px;
+        transition-duration: .25s;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.999 4V20M11.999 20L17.999 14M11.999 20L5.99902 14' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+
+        @media (min-width: 768px) {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      span {
+        color: $ember-100;
+      }
+    }
+    
+    .acc-panel {
+      height: 0;
+      overflow: hidden;
+      transition-duration: .25s;
+
+      &-inner {
+        padding-bottom: 24px;
+        color: $black-60;
+        line-height: 1.4;
+
+        @media (min-width: 768px) {
+          padding-bottom: 48px;
+          font-size: 20px;
+        }
+
+        @media (min-width: 1024px) {
+          padding-left: 38vw;
+          padding-right: 56px;
+        }
+
+        @media (min-width: 1440px) {
+          width: 926px;
+          margin-left: auto;
+          padding-left: 0;
+          padding-right: 160px;
+        }
+      }
+    }
+  }
+}

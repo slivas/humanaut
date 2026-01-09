@@ -1,0 +1,229 @@
+@import "../general/theme";
+
+.how-it-works {
+  position: relative;
+  padding-top: 42px;
+  padding-bottom: 46px;
+  background-color: $starlight;
+  z-index: 1;
+
+  @media (min-width: 1280px) {
+    padding-top: 64px;
+    padding-bottom: 98px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    transition-duration: .25s;
+    opacity: 0;
+  }
+
+  &--consultation {
+    &::before {
+      opacity: 1;
+      background-image: url("../images/how-it-works/consultation-mobile-bg.webp");
+
+      @media (min-width: 768px) {
+        background-image: url("../images/how-it-works/consultation-desktop-bg.webp");
+      }
+    }
+  }
+
+  &--personalized {
+    &::before {
+      opacity: 1;
+      background-image: url("../images/how-it-works/personalized-mobile-bg.webp");
+
+      @media (min-width: 768px) {
+        background-image: url("../images/how-it-works/personalized-desktop-bg.webp");
+      }
+    }
+  }
+
+  &--coordination {
+    &::before {
+      opacity: 1;
+      background-image: url("../images/how-it-works/coordination-mobile-bg.webp");
+
+      @media (min-width: 768px) {
+        background-image: url("../images/how-it-works/coordination-desktop-bg.webp");
+      }
+    }
+  }
+
+  &--aftercare {
+    &::before {
+      opacity: 1;
+      background-image: url("../images/how-it-works/aftercare-mobile-bg.webp");
+
+      @media (min-width: 768px) {
+        background-image: url("../images/how-it-works/aftercare-desktop-bg.webp");
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: 82px;
+    text-align: center;
+    font: {
+      size: 24px;
+      weight: 500;
+    }
+    color: $black-100;
+
+    @media (min-width: 1280px) {
+      margin-bottom: 196px;
+      text-align: left;
+      font-size: 40px;
+    }
+  }
+
+  h3 {
+    margin-bottom: 18px;
+    color: $ember-100;
+    font: {
+      size: 33px;
+      weight: 600;
+    }
+    text-transform: uppercase;
+    line-height: 1;
+
+    @media (min-width: 768px) {
+      margin-bottom: 30px;
+      font: {
+        size: 44px;
+        weight: 500;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      margin-bottom: 30px;
+      font-size: 55px;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__content {
+      position: relative;
+      max-width: 320px;
+      color: $black-60;
+      font-family: "Darker Grotesque", sans-serif;
+
+      @media (min-width: 768px) {
+        max-width: 396px;
+      }
+
+      @media (min-width: 1024px) {
+        max-width: 460px;
+      }
+
+      @media (min-width: 1280px) {
+        max-width: 494px;
+      }
+    }
+
+    &__panel {
+      min-height: 180px;
+      text-align: center;
+      font: {
+        size: 24px;
+        weight: 500;
+      };
+      line-height: 1;
+      transition-duration: .5s;
+      transition-property: opacity;
+
+      @media (min-width: 768px) {
+        min-height: 260px;
+        font-size: 28px;
+      }
+
+      @media (min-width: 1280px) {
+        min-height: 310px;
+        font-size: 40px;
+      }
+
+      &:not(.is-active) {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    &__nav {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      max-width: 296px;
+      padding: 6px;
+      border-radius: 21px;
+      border: 1px solid $black-20;
+      background-color: rgba(123, 123, 125, 0.10);
+      backdrop-filter: blur(22px);
+
+      @media (min-width: 768px) {
+        max-width: none;
+      }
+    }
+
+    &__tab {
+      padding: 12px;
+      font: {
+        size: 14px;
+        weight: 500;
+      }
+      background-color: transparent;
+      color: $black-80;
+      border-radius: 52px;
+      border-width: 0;
+      box-shadow: 0 4px 19px 0 rgba(14, 14, 14, 0);
+      transition-duration: .25s;
+
+      @media (min-width: 1280px) {
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      &.is-active {
+        color: $white;
+        background-color: $black-90;
+        box-shadow: 0 4px 19px 0 rgba(14, 14, 14, 0.34);
+      }
+
+      &:hover {
+        @media (min-width: 1280px) {
+          color: $white;
+          background-color: $ember-100;
+          box-shadow: 0 4px 19px 0 rgba(14, 14, 14, 0.34);
+        }
+      }
+    }
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 74px;
+    margin-bottom: 80px;
+
+    @media (min-width: 1280px) {
+      margin-top: 30px;
+      margin-bottom: 154px;
+    }
+  }
+}

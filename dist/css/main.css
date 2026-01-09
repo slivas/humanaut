@@ -1028,35 +1028,18 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
     justify-content: flex-end;
   }
 }
-@media (min-width: 1780px) {
+@media (min-width: 1600px) {
   .implementation__nav {
-    position: static;
+    bottom: 70px;
+    left: 50%;
+    max-width: 1660px;
+    transform: translateX(-50%);
   }
 }
 .implementation__nav-btn {
   background-color: transparent;
   border-width: 0;
   cursor: pointer;
-}
-@media (min-width: 1780px) {
-  .implementation__nav-btn {
-    position: absolute;
-    top: 50%;
-    width: 24px;
-    height: 24px;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-}
-@media (min-width: 1780px) {
-  .implementation__nav-btn.prev {
-    left: calc((100vw - 1700px) / 2);
-  }
-}
-@media (min-width: 1780px) {
-  .implementation__nav-btn.next {
-    right: calc((100vw - 1700px) / 2);
-  }
 }
 .implementation__nav-btn svg path {
   stroke: #fff;

@@ -229,11 +229,34 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 }
 @media (min-width: 1024px) {
   .implementation {
-    background-color: transparent;
+    background-color: #464B4D;
+    overflow: hidden;
+    height: 100vh;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .implementation.allow-scroll-past {
+    position: relative;
+  }
+}
+.implementation.is-scroll-locked {
+  touch-action: none;
+}
+@media (min-width: 1024px) {
+  .implementation.is-scroll-locked {
+    will-change: transform;
   }
 }
 .implementation__inner {
   position: relative;
+}
+@media (min-width: 1024px) {
+  .implementation__inner {
+    height: 100vh;
+    min-height: 100vh;
+  }
 }
 .implementation__header {
   padding: 20px;
@@ -373,19 +396,50 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
     font-size: 45px;
   }
 }
+.implementation .item-title-5 {
+  font-size: 23px;
+}
+@media (min-width: 768px) {
+  .implementation .item-title-5 {
+    font-size: 26px;
+  }
+}
+@media (min-width: 1024px) {
+  .implementation .item-title-5 {
+    font-size: 23px;
+  }
+}
+@media (min-width: 1280px) {
+  .implementation .item-title-5 {
+    font-size: 42px;
+  }
+}
+@media (min-width: 1440px) {
+  .implementation .item-title-5 {
+    font-size: 45px;
+  }
+}
 .implementation__body {
   position: relative;
   height: 568px;
   overflow: hidden;
 }
+@media (min-width: 1024px) {
+  .implementation__body {
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
 @media (min-width: 1280px) {
   .implementation__body {
-    height: 720px;
+    height: 100vh;
+    min-height: 100vh;
   }
 }
 @media (min-width: 1600px) {
   .implementation__body {
-    height: 820px;
+    height: 100vh;
+    min-height: 100vh;
   }
 }
 .implementation__info-wrapper {
@@ -396,9 +450,22 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   height: calc(100% - 54px);
   z-index: 1;
 }
+@media (min-width: 1024px) {
+  .implementation__info-wrapper {
+    height: 100vh;
+    min-height: 100vh;
+    top: 0;
+  }
+}
 .implementation__img {
   display: block;
   height: 100%;
+}
+@media (min-width: 1024px) {
+  .implementation__img {
+    height: 100vh;
+    min-height: 100vh;
+  }
 }
 .implementation__img img {
   height: 100%;
@@ -406,6 +473,12 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+@media (min-width: 1024px) {
+  .implementation__img img {
+    height: 100vh;
+    min-height: 100vh;
+  }
 }
 .implementation .marker {
   position: absolute;
@@ -459,6 +532,12 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   transition-duration: 0.5s;
   opacity: 0;
 }
+@media (min-width: 1024px) {
+  .implementation .item {
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
 @media (max-width: 767px) {
   .implementation .item-1 .implementation__img img {
     -o-object-position: calc(50% - 100px) top;
@@ -481,6 +560,18 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   .implementation .item-4 .implementation__img img {
     -o-object-position: calc(50% - 140px) top;
        object-position: calc(50% - 140px) top;
+  }
+}
+@media (max-width: 767px) {
+  .implementation .item-5 .implementation__img img {
+    -o-object-position: 80% top;
+       object-position: 80% top;
+  }
+}
+@media (min-width: 1024px) {
+  .implementation .item-5 .implementation__img img {
+    height: 100vh;
+    min-height: 100vh;
   }
 }
 .implementation .item-1-active .item-title-1 {
@@ -708,7 +799,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   }
 }
 .implementation .item-2-active .implementation__nav-btn svg path {
-  stroke: #7B7B7D;
+  stroke: #7b7b7d;
 }
 .implementation .item-3-active .item-title-3 {
   display: block;
@@ -799,7 +890,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   display: none;
 }
 .implementation .item-3-active .implementation__nav-btn svg path {
-  stroke: #7B7B7D;
+  stroke: #7b7b7d;
 }
 .implementation .item-4-active .item-title-4 {
   display: block;
@@ -1011,15 +1102,9 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .implementation .item-5-active .item-title-5 {
   display: block;
 }
-@media (min-width: 1280px) {
-  .implementation .item-5-active .item-title-5 {
-    font-size: 42px;
-  }
-}
 @media (min-width: 1440px) {
   .implementation .item-5-active .item-title-5 {
     max-width: 436px;
-    font-size: 55px;
   }
 }
 .implementation .item-5-active .item-5 {
@@ -1029,6 +1114,12 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   .implementation .item-5-active .item-5 .implementation__img img {
     -o-object-position: 80% top;
        object-position: 80% top;
+  }
+}
+@media (min-width: 1024px) {
+  .implementation .item-5-active .item-5 .implementation__img img {
+    height: 100vh;
+    min-height: 100vh;
   }
 }
 .implementation .item-5-active .marker .name__item-5 {
@@ -1340,7 +1431,8 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   -webkit-mask-composite: xor;
           mask-composite: exclude;
 }
-.implementation .modal-inner span, .implementation .modal-inner .modal-title {
+.implementation .modal-inner span,
+.implementation .modal-inner .modal-title {
   font-family: "Darker Grotesque", sans-serif;
 }
 .implementation .modal-inner span {

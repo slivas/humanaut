@@ -1,15 +1,47 @@
-@import "../general/theme";
+@import '../general/theme';
 
 .implementation {
   background-color: $black-80;
   color: $white;
 
   @media (min-width: 1024px) {
-    background-color: transparent;
+    // Keep background color to prevent next section from showing through
+    background-color: $black-80;
+    overflow: hidden;
+
+    // Make section 100vh
+    height: 100vh;
+    min-height: 100vh;
+
+    // Sticky approach: section sticks to top until last slide
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    // When on last slide, allow scrolling past (remove sticky)
+    &.allow-scroll-past {
+      position: relative;
+    }
+  }
+
+  // Better approach: Use CSS for scroll lock when active
+  &.is-scroll-locked {
+    // Prevent any scroll within the section
+    touch-action: none;
+
+    @media (min-width: 1024px) {
+      // On desktop, we handle via JS, but CSS can help
+      will-change: transform;
+    }
   }
 
   &__inner {
     position: relative;
+
+    @media (min-width: 1024px) {
+      height: 100vh;
+      min-height: 100vh;
+    }
   }
 
   &__header {
@@ -25,7 +57,7 @@
       height: 500px;
       width: 320px;
       border-radius: 22px;
-      background-color: rgba(70, 75, 77, 0.60);
+      background-color: rgba(70, 75, 77, 0.6);
       backdrop-filter: blur(22px);
       transform: translateY(-50%);
       z-index: 2;
@@ -71,7 +103,7 @@
   &__item-num {
     margin-bottom: 20px;
     font: {
-      family: "Darker Grotesque", sans-serif;
+      family: 'Darker Grotesque', sans-serif;
       size: 18px;
     }
   }
@@ -100,20 +132,20 @@
         weight: 600;
       }
     }
-    
+
     @media (min-width: 1440px) {
     }
 
     i {
       font: {
-        family: "Inter", sans-serif;
+        family: 'Inter', sans-serif;
         size: 20px;
         weight: 400;
       }
 
       @media (min-width: 1024px) {
         font: {
-          family: "Darker Grotesque", sans-serif;
+          family: 'Darker Grotesque', sans-serif;
           style: normal;
           size: 34px;
           weight: 600;
@@ -134,7 +166,7 @@
     font: {
       size: 33px;
       weight: 600;
-    };
+    }
     color: $ember-100;
 
     @media (min-width: 1024px) {
@@ -163,6 +195,26 @@
         font-size: 45px;
       }
     }
+
+    &-5 {
+      font-size: 23px;
+
+      @media (min-width: 768px) {
+        font-size: 26px;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 23px;
+      }
+
+      @media (min-width: 1280px) {
+        font-size: 42px;
+      }
+
+      @media (min-width: 1440px) {
+        font-size: 45px;
+      }
+    }
   }
 
   &__body {
@@ -170,11 +222,18 @@
     height: 568px;
     overflow: hidden;
 
+    @media (min-width: 1024px) {
+      height: 100vh;
+      min-height: 100vh;
+    }
+
     @media (min-width: 1280px) {
-      height: 720px;
+      height: 100vh;
+      min-height: 100vh;
     }
     @media (min-width: 1600px) {
-      height: 820px;
+      height: 100vh;
+      min-height: 100vh;
     }
   }
 
@@ -185,17 +244,33 @@
     width: 100%;
     height: calc(100% - 54px);
     z-index: 1;
+
+    @media (min-width: 1024px) {
+      height: 100vh;
+      min-height: 100vh;
+      top: 0;
+    }
   }
 
   &__img {
     display: block;
     height: 100%;
 
+    @media (min-width: 1024px) {
+      height: 100vh;
+      min-height: 100vh;
+    }
+
     img {
       height: 100%;
       max-width: none;
       width: 100%;
       object-fit: cover;
+
+      @media (min-width: 1024px) {
+        height: 100vh;
+        min-height: 100vh;
+      }
     }
   }
 
@@ -203,7 +278,7 @@
     position: absolute;
     display: flex;
     font-size: 20px;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
 
@@ -218,9 +293,9 @@
       align-items: center;
       visibility: visible;
       pointer-events: none;
-      font-family: "Darker Grotesque", sans-serif;
+      font-family: 'Darker Grotesque', sans-serif;
       line-height: normal;
-      transition-duration: .3s;
+      transition-duration: 0.3s;
     }
 
     &__img {
@@ -248,8 +323,13 @@
     left: 0;
     height: 100%;
     width: 100%;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
     opacity: 0;
+
+    @media (min-width: 1024px) {
+      height: 100vh;
+      min-height: 100vh;
+    }
 
     &-1 {
       .implementation__img img {
@@ -279,6 +359,19 @@
       .implementation__img img {
         @media (max-width: 767px) {
           object-position: calc(50% - 140px) top;
+        }
+      }
+    }
+
+    &-5 {
+      .implementation__img img {
+        @media (max-width: 767px) {
+          object-position: 80% top;
+        }
+
+        @media (min-width: 1024px) {
+          height: 100vh;
+          min-height: 100vh;
         }
       }
     }
@@ -469,7 +562,6 @@
             padding-left: 0;
             padding-right: 60px;
           }
-
         }
 
         &__img {
@@ -504,7 +596,7 @@
     }
 
     .implementation__nav-btn svg path {
-      stroke: #7B7B7D;
+      stroke: #7b7b7d;
     }
   }
 
@@ -570,7 +662,7 @@
           top: 300px;
           left: calc(50% + 96px);
         }
-        
+
         @media (min-width: 1024px) {
           left: calc(50% + 106px);
         }
@@ -600,7 +692,7 @@
     }
 
     .implementation__nav-btn svg path {
-      stroke: #7B7B7D;
+      stroke: #7b7b7d;
     }
   }
 
@@ -675,7 +767,7 @@
             max-width: 234px;
             padding-left: 0;
           }
-          
+
           @media (min-width: 1600px) {
             left: 100px;
             max-width: 400px;
@@ -687,7 +779,7 @@
           }
         }
 
-        &__img  {
+        &__img {
           margin-top: -30px;
           margin-left: 60px;
           margin-right: 0;
@@ -810,13 +902,8 @@
     .item-title-5 {
       display: block;
 
-      @media (min-width: 1280px) {
-        font-size: 42px;
-      }
-
       @media (min-width: 1440px) {
         max-width: 436px;
-        font-size: 55px;
       }
     }
 
@@ -826,6 +913,11 @@
       .implementation__img img {
         @media (max-width: 1023px) {
           object-position: 80% top;
+        }
+
+        @media (min-width: 1024px) {
+          height: 100vh;
+          min-height: 100vh;
         }
       }
     }
@@ -882,15 +974,13 @@
           }
 
           @media (min-width: 1600px) {
-
           }
 
           @media (min-width: 1024px) {
-
           }
         }
 
-        &__img  {
+        &__img {
           margin-top: -30px;
           margin-left: 60px;
           margin-right: 0;
@@ -947,7 +1037,6 @@
       svg path {
         stroke: #fff;
       }
-
     }
   }
 
@@ -960,7 +1049,7 @@
     max-width: 340px;
     overflow: hidden;
     transform-origin: bottom;
-    transition-duration: .25s;
+    transition-duration: 0.25s;
     z-index: 3;
 
     @media (min-width: 1024px) {
@@ -1011,7 +1100,7 @@
         top: 20px;
         left: calc(50% + 80px);
       }
-      
+
       @media (min-width: 1280px) {
         top: 44px;
       }
@@ -1048,7 +1137,7 @@
         top: -26px;
         left: calc(50% + 90px);
       }
-      
+
       @media (min-width: 1280px) {
         top: 10px;
         left: calc(50% + 70px);
@@ -1122,7 +1211,7 @@
       backdrop-filter: blur(17px);
       line-height: normal;
       transform: translateY(100%);
-      transition-duration: .25s;
+      transition-duration: 0.25s;
 
       @media (min-width: 1024px) {
         padding: 30px;
@@ -1134,19 +1223,14 @@
         inset: 0;
         padding: 1px;
         border-radius: inherit;
-        background: linear-gradient(
-                        110deg,
-                        rgba(255,255,255,1),
-                        rgba(185, 185, 185, 0.1)
-        );
-        -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
+        background: linear-gradient(110deg, rgba(255, 255, 255, 1), rgba(185, 185, 185, 0.1));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask-composite: exclude;
       }
 
-      span, .modal-title {
-        font-family: "Darker Grotesque", sans-serif;
+      span,
+      .modal-title {
+        font-family: 'Darker Grotesque', sans-serif;
       }
 
       span {
@@ -1230,7 +1314,5 @@
     @media (min-width: 1024px) {
       display: none;
     }
-
-
   }
 }

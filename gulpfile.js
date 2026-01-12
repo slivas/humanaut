@@ -39,7 +39,7 @@ function styles() {
 }
 
 function images() {
-    return src(paths.images.src)
+    return src(paths.images.src, { allowEmpty: true })
         .pipe(newer(paths.images.dest))
         .pipe(dest(paths.images.dest))
         .pipe(browserSync.stream());

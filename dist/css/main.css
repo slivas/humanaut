@@ -191,12 +191,18 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   font-size: 36px;
   font-weight: 500;
 }
+@media (min-width: 768px) {
+  .hero h1 {
+    max-width: 724px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 70px;
+  }
+}
 @media (min-width: 1024px) {
   .hero h1 {
     max-width: 730px;
     margin-bottom: 20px;
-    margin-right: auto;
-    margin-left: auto;
     font-size: 88px;
   }
 }

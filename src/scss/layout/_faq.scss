@@ -31,6 +31,40 @@
      }
    }
 
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 34px;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      align-items: flex-start;
+      column-gap: 28px;
+    }
+
+    @media (min-width: 1280px) {
+      column-gap: 155px;
+    }
+  }
+
+  &__img {
+    display: block;
+    border-radius: 22px;
+    overflow: hidden;
+
+    @media (min-width: 1024px) {
+      flex: 0 0 400px;
+    }
+
+    img {
+      @media (min-width: 1024px) {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
   .accordion {
     .acc-item {
       position: relative;
@@ -52,12 +86,6 @@
                         transparent var(--dash) calc(var(--dash) + var(--gap))
         );
       }
-
-      &.is-open {
-        .acc-trigger::after {
-          transform: translateY(-50%) rotate(-180deg);
-        }
-      }
     }
 
     .acc-trigger {
@@ -67,7 +95,6 @@
       grid-column-gap: 16px;
       padding-top: 24px;
       padding-bottom: 24px;
-      padding-right: 56px;
       font: {
         family: "Darker Grotesque", sans-serif;
         size: 24px;
@@ -83,34 +110,15 @@
       }
 
       @media (min-width: 1024px) {
-        grid-template-columns: 38vw 1fr;
-        grid-column-gap: 0;
         cursor: pointer;
       }
 
       @media (min-width: 1280px) {
-        padding-right: 160px;
+        font-size: 40px;
       }
 
       @media (min-width: 1440px) {
-        grid-template-columns: 1fr 766px;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%) rotate(0);
-        width: 24px;
-        height: 24px;
-        transition-duration: .25s;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.999 4V20M11.999 20L17.999 14M11.999 20L5.99902 14' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-
-        @media (min-width: 768px) {
-          width: 32px;
-          height: 32px;
-        }
+        grid-column-gap: 40px;
       }
 
       span {
@@ -129,20 +137,13 @@
         line-height: 1.4;
 
         @media (min-width: 768px) {
+          padding-left: 76px;
           padding-bottom: 48px;
           font-size: 20px;
         }
 
-        @media (min-width: 1024px) {
-          padding-left: 38vw;
-          padding-right: 56px;
-        }
-
         @media (min-width: 1440px) {
-          width: 926px;
-          margin-left: auto;
-          padding-left: 0;
-          padding-right: 160px;
+          padding-left: 100px;
         }
       }
     }

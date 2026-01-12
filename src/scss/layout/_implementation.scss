@@ -144,7 +144,7 @@
     @media (min-width: 1280px) {
       font: {
         size: 55px;
-        weight: 600;
+        weight: 500;
       }
     }
 
@@ -806,6 +806,115 @@
     }
   }
 
+  .item-5-active {
+    .item-title-5 {
+      display: block;
+
+      @media (min-width: 1280px) {
+        font-size: 42px;
+      }
+
+      @media (min-width: 1440px) {
+        max-width: 436px;
+        font-size: 55px;
+      }
+    }
+
+    .item-5 {
+      opacity: 1;
+
+      .implementation__img img {
+        @media (max-width: 1023px) {
+          object-position: 80% top;
+        }
+      }
+    }
+
+    .marker {
+      .name__item-5 {
+        position: relative;
+        display: flex;
+        width: auto;
+        height: inherit;
+        padding-left: 60px;
+        margin-left: -30px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      &-1 {
+        top: 92px;
+        left: calc(50% + 53px);
+        width: 251px;
+        flex-direction: column;
+        font-size: 18px;
+        align-items: start;
+
+        @media (min-width: 768px) {
+          top: 114px;
+          left: calc(50% + 150px);
+        }
+
+        @media (min-width: 1024px) {
+          top: 90px;
+          left: calc(50% + 280px);
+          font-size: 32px;
+        }
+
+        @media (min-width: 1280px) {
+          top: 125px;
+          left: calc(50% + 345px);
+        }
+
+        @media (min-width: 1600px) {
+          top: 156px;
+          left: calc(50% + 384px);
+        }
+
+        .name__item-5 {
+          margin-top: -50px;
+          padding-top: 28px;
+
+          @media (min-width: 768px) {
+            margin-top: -60px;
+            margin-left: -10px;
+          }
+
+          @media (min-width: 1600px) {
+
+          }
+
+          @media (min-width: 1024px) {
+
+          }
+        }
+
+        &__img  {
+          margin-top: -30px;
+          margin-left: 60px;
+          margin-right: 0;
+        }
+      }
+
+      &-2 {
+        display: none;
+      }
+
+      &-3 {
+        display: none;
+      }
+    }
+
+    .implementation__header {
+      padding-bottom: 6px;
+
+      @media (min-width: 768px) {
+        padding-bottom: 26px;
+      }
+    }
+  }
+
   &__nav {
     position: absolute;
     left: 0;
@@ -995,6 +1104,13 @@
       @media (min-width: 1280px) {
         top: 428px;
         left: calc(50% + 310px);
+      }
+    }
+
+    &#brain {
+      @media (min-width: 1024px) {
+        top: 40px;
+        left: calc(50% + 210px);
       }
     }
 

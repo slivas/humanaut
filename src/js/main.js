@@ -109,15 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrev = section.querySelector('.implementation__nav-btn.prev');
     const itemNumEl = section.querySelector('.implementation__item-num span');
 
-    const MAX_ITEMS = 4;
+    const MAX_ITEMS = 5;
 
     // --- tuning
     const DESKTOP_STOP_OFFSET = 0;   // якщо треба під хедер — став 140 і додай offset у snap (див. нижче)
     const NEARLY_VISIBLE_RATIO = 0.92; // майже 100% (щоб тачпад не "пролітав")
     const TOP_SNAP_MIN = -20;          // px
     const TOP_SNAP_MAX = 160;          // px (чим більше — тим раніше фіксується)
-    const WHEEL_THRESHOLD = 70;
-    const COOLDOWN_MS = 240;
+    const WHEEL_THRESHOLD = 40;
+    const COOLDOWN_MS = 140;
 
     // --- state
     let locked = false;

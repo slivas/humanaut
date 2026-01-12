@@ -73,17 +73,13 @@
     }
 
     @media (min-width: 1280px) {
-      max-width: 950px;
+      max-width: 730px;
       margin-bottom: 28px;
-      font-size: 96px;
+      font-size: 88px;
     }
 
-    i {
+    span {
       color: $ember-100;
-      font: {
-        family: "Inter", sans-serif;
-        weight: 300;
-      }
     }
   }
 

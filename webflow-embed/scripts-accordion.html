@@ -1,0 +1,54 @@
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    /* Accordion */
+    const accordion =
+      document.querySelector('.testartem .accordion') || document.querySelector('.accordion');
+    if (!accordion) return;
+
+    function open(panel, item) {
+      item.classList.add('is-open');
+      panel.style.setProperty('height', panel.getBoundingClientRect().height + 'px', 'important');
+      requestAnimationFrame(() => {
+        panel.style.setProperty('height', panel.scrollHeight + 'px', 'important');
+      });
+      const onEnd = (e) => {
+        if (e.propertyName !== 'height') return;
+        panel.removeEventListener('transitionend', onEnd);
+        panel.style.setProperty('height', 'auto', 'important');
+      };
+      panel.addEventListener('transitionend', onEnd);
+    }
+
+    function close(panel, item) {
+      item.classList.remove('is-open');
+      panel.style.setProperty('height', panel.scrollHeight + 'px', 'important');
+      requestAnimationFrame(() => {
+        panel.style.setProperty('height', '0px', 'important');
+      });
+    }
+
+    accordion.addEventListener('click', (e) => {
+      const btn = e.target.closest('.acc-trigger');
+      if (!btn) return;
+
+      const item = btn.parentElement;
+      const panel = btn.nextElementSibling;
+      const isOpen = item.classList.contains('is-open');
+
+      accordion.querySelectorAll('.acc-item.is-open').forEach((other) => {
+        const otherPanel = other.querySelector('.acc-panel');
+        if (other !== item) close(otherPanel, other);
+      });
+
+      if (!isOpen) {
+        open(panel, item);
+      } else {
+        close(panel, item);
+      }
+    });
+
+    document
+      .querySelectorAll('.acc-item.is-open .acc-panel')
+      .forEach((p) => p.style.setProperty('height', 'auto', 'important'));
+  });
+</script>

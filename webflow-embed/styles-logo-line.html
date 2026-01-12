@@ -1,0 +1,54 @@
+<style>
+  /* Logo Line Marquee Animation */
+
+  /* Track container - must be flex row */
+  .testartem .logo-line__track,
+  .logo-line__track {
+    display: flex !important;
+    flex-direction: row !important;
+    width: max-content !important;
+    min-width: 200% !important; /* Ensure it's wide enough */
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+    animation: logoMarqueeMove 30s linear infinite !important;
+    transform: translateZ(0) !important;
+  }
+
+  /* Animation keyframes */
+  @keyframes logoMarqueeMove {
+    0% {
+      transform: translate3d(0, 0, 0) !important;
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0) !important;
+    }
+  }
+
+  /* Lists side by side */
+  .testartem .logo-line__list,
+  .logo-line__list {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--marquee-gap, 20px) !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+  }
+
+  /* Logos */
+  .testartem .logo-line__logo,
+  .logo-line__logo {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+  }
+
+  /* Viewport */
+  .testartem .logo-line__viewport,
+  .logo-line__viewport {
+    overflow: hidden !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+</style>

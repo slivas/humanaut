@@ -189,21 +189,14 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .hero h1 {
   margin-bottom: 18px;
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 500;
 }
 @media (min-width: 1024px) {
   .hero h1 {
-    max-width: 620px;
+    max-width: 730px;
     margin-bottom: 20px;
     margin-right: auto;
     margin-left: auto;
-    font-size: 60px;
-  }
-}
-@media (min-width: 1280px) {
-  .hero h1 {
-    max-width: 730px;
-    margin-bottom: 28px;
     font-size: 88px;
   }
 }
@@ -412,7 +405,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   position: absolute;
   display: flex;
   font-size: 20px;
-  transition-duration: 0.3s;
+  transition-duration: 0.5s;
   transform: translate(-50%, -50%);
   text-transform: uppercase;
 }
@@ -457,7 +450,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   left: 0;
   height: 100%;
   width: 100%;
-  transition-duration: 0.3s;
+  transition-duration: 0.5s;
   opacity: 0;
 }
 @media (max-width: 767px) {

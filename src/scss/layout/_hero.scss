@@ -61,20 +61,14 @@
     margin-bottom: 18px;
     font: {
       size: 36px;
-      weight: 400;
+      weight: 500;
     }
 
     @media (min-width: 1024px) {
-      max-width: 620px;
+      max-width: 730px;
       margin-bottom: 20px;
       margin-right: auto;
       margin-left: auto;
-      font-size: 60px;
-    }
-
-    @media (min-width: 1280px) {
-      max-width: 730px;
-      margin-bottom: 28px;
       font-size: 88px;
     }
 

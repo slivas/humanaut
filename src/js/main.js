@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', closeAllModals);
 
-    /*Implementation slider*/
+/*Implementation slider*/
     const section = document.querySelector('.implementation');
     if (!section) return;
 
@@ -109,32 +109,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrev = section.querySelector('.implementation__nav-btn.prev');
     const itemNumEl = section.querySelector('.implementation__item-num span');
 
+    // -------------------------
+    // CONFIG
+    // -------------------------
     const MAX_ITEMS = 5;
 
-    // --- tuning
-    const DESKTOP_STOP_OFFSET = 0;   // якщо треба під хедер — став 140 і додай offset у snap (див. нижче)
-    const NEARLY_VISIBLE_RATIO = 0.92; // майже 100% (щоб тачпад не "пролітав")
-    const TOP_SNAP_MIN = -20;          // px
-    const TOP_SNAP_MAX = 160;          // px (чим більше — тим раніше фіксується)
-    const WHEEL_THRESHOLD = 40;
-    const COOLDOWN_MS = 140;
+    // Центр-режим (десктоп): “коридор” навколо центру екрана
+    // 0.18 => коридор ±18% висоти екрана (зроби 0.22 якщо хочеш ловити раніше)
+    const CENTER_BAND = 0.18;
 
-    // --- state
-    let locked = false;
-    let wheelCooldown = false;
+    // Скільки секції має бути видно, щоб lock вмикався (щоб не ловив “краєм”)
+    const MIN_VISIBLE_RATIO = 0.55;
+
+    // Wheel tuning
+    const WHEEL_THRESHOLD = 90;   // ↑ стабільніше (менше випадкових кроків)
+    const DELTA_CLAMP = 90;
+
+    // 1 крок на 1 жест тачпада
+    const GESTURE_END_MS = 160;
+
+    // -------------------------
+    // STATE
+    // -------------------------
+    let inBand = false;
+    let visibleEnough = false;
+
     let wheelAccum = 0;
-    let snappedOnce = false; // щоб не "липло" постійно
-    let nearlyVisible = false;
+    let gestureStepped = false;
+    let gestureTimer = null;
 
-    // ---------- helpers
+    // -------------------------
+    // HELPERS
+    // -------------------------
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+    const normDelta = (dy) => clamp(dy, -DELTA_CLAMP, DELTA_CLAMP);
+
     const getActiveIndex = () => {
-        const cls = inner.className.match(/item-(\d+)-active/);
-        const n = cls ? parseInt(cls[1], 10) : 1;
-        return Math.min(Math.max(n, 1), MAX_ITEMS);
+        const m = inner.className.match(/item-(\d+)-active/);
+        const n = m ? parseInt(m[1], 10) : 1;
+        return clamp(n, 1, MAX_ITEMS);
     };
 
     const setActiveIndex = (index) => {
-        const next = Math.min(Math.max(index, 1), MAX_ITEMS);
+        const next = clamp(index, 1, MAX_ITEMS);
 
         for (let i = 1; i <= MAX_ITEMS; i++) inner.classList.remove(`item-${i}-active`);
         inner.classList.add(`item-${next}-active`);
@@ -147,13 +164,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const step = (dir) => setActiveIndex(getActiveIndex() + dir);
 
-    // ---------- buttons
+    const resetGesture = () => {
+        wheelAccum = 0;
+        gestureStepped = false;
+        if (gestureTimer) {
+            clearTimeout(gestureTimer);
+            gestureTimer = null;
+        }
+    };
+
+    const markGesture = () => {
+        if (gestureTimer) clearTimeout(gestureTimer);
+        gestureTimer = setTimeout(() => {
+            gestureStepped = false;
+            wheelAccum = 0;
+            gestureTimer = null;
+        }, GESTURE_END_MS);
+    };
+
+    // Центр-умова: центр секції потрапив в “коридор” навколо центру екрану
+    const isInCenterBand = () => {
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+
+        const secCenter = rect.top + rect.height / 2;
+        const viewCenter = vh / 2;
+
+        const band = vh * CENTER_BAND;
+
+        return Math.abs(secCenter - viewCenter) <= band;
+    };
+
+    // -------------------------
+    // BUTTONS
+    // -------------------------
     btnNext?.addEventListener('click', (e) => { e.preventDefault(); step(+1); });
     btnPrev?.addEventListener('click', (e) => { e.preventDefault(); step(-1); });
 
-    // ---------- mobile swipe
+    // -------------------------
+    // MOBILE SWIPE (left/right)
+    // -------------------------
     let touchStartX = 0;
     let touchStartY = 0;
+
     const SWIPE_MIN_DIST = 40;
     const SWIPE_MAX_ANGLE = 0.6;
 
@@ -166,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     section.addEventListener('touchend', (e) => {
         if (!isMobile()) return;
-
         const t = e.changedTouches[0];
         const dx = t.clientX - touchStartX;
         const dy = t.clientY - touchStartY;
@@ -178,110 +230,78 @@ document.addEventListener('DOMContentLoaded', () => {
         else step(-1);
     }, { passive: true });
 
-    // ---------- desktop: track "nearly visible"
+    // -------------------------
+    // OBSERVER: видимість
+    // -------------------------
     const io = new IntersectionObserver((entries) => {
         const e = entries[0];
-        nearlyVisible = e.isIntersecting && e.intersectionRatio >= NEARLY_VISIBLE_RATIO;
+        visibleEnough = e.isIntersecting && e.intersectionRatio >= MIN_VISIBLE_RATIO;
 
-        // якщо вийшли з секції — скидаємо, щоб наступного разу знов можна було snap
-        if (!e.isIntersecting || e.intersectionRatio < 0.3) {
-            snappedOnce = false;
-            locked = false;
-            wheelAccum = 0;
+        // якщо майже вийшли — скидаємо, щоб не “тримало”
+        if (!e.isIntersecting || e.intersectionRatio < 0.2) {
+            resetGesture();
         }
-    }, { threshold: [0, 0.3, NEARLY_VISIBLE_RATIO, 1] });
+    }, { threshold: [0, 0.2, MIN_VISIBLE_RATIO, 1] });
 
     io.observe(section);
 
-    // ---------- snap (один раз)
-    const snapToTop = () => {
-        const rect = section.getBoundingClientRect();
-        const targetY = window.scrollY + rect.top - DESKTOP_STOP_OFFSET;
-        window.scrollTo({ top: targetY, behavior: 'auto' });
-    };
-
-    // секція “стоїть” у верхній частині екрану (готова до lock)
-    const isInTopBand = () => {
-        const rect = section.getBoundingClientRect();
-        return rect.top >= TOP_SNAP_MIN && rect.top <= TOP_SNAP_MAX;
-    };
-
-    // lock зона (коли вже підхопили)
-    const inLockZone = () => {
-        const rect = section.getBoundingClientRect();
-        // якщо DESKTOP_STOP_OFFSET=0 — це просто top<=0
-        return rect.top <= DESKTOP_STOP_OFFSET + 2 && rect.bottom > (DESKTOP_STOP_OFFSET + 120);
-    };
-
+    // -------------------------
+    // DESKTOP: WHEEL CENTER LOCK
+    // -------------------------
     const onWheel = (e) => {
         if (isMobile()) return;
 
-        const dy = e.deltaY;
+        // оновлюємо band по факту (без таймерів)
+        inBand = isInCenterBand();
 
-        // --- ВХІД: тільки коли секція майже 100% видима і близько до верху
-        if (!locked) {
-            if (!nearlyVisible) return;
-            if (!isInTopBand()) return;
-
-            // робимо snap один раз, щоб вирівняти
-            if (!snappedOnce) {
-                e.preventDefault();
-                snappedOnce = true;
-                snapToTop();
-                locked = true;
-                wheelAccum = 0;
-                return;
-            }
-
-            locked = true;
-        }
-
-        // якщо з якихось причин ми вже не в lock зоні — відпускаємо
-        if (!inLockZone()) {
-            locked = false;
+        // якщо не видно достатньо або не в центр-коридорі — відпускаємо сторінку
+        if (!visibleEnough || !inBand) {
+            resetGesture();
             return;
         }
 
+        const dy = normDelta(e.deltaY);
         const idx = getActiveIndex();
 
-        // --- ВИХІД: на краях відпускаємо сторінку
+        // На краях — відпускаємо сторінку у “зовнішньому” напрямку
         if ((idx === 1 && dy < 0) || (idx === MAX_ITEMS && dy > 0)) {
-            locked = false;
-            wheelAccum = 0;
+            resetGesture();
             return; // без preventDefault
         }
 
-        // --- ЛИСТАННЯ
+        // В межах — блокуємо вертикальний скрол
         e.preventDefault();
+
+        // жест тачпада
+        markGesture();
+
+        // 1 крок на 1 жест
+        if (gestureStepped) return;
+
         wheelAccum += dy;
 
-        if (wheelCooldown) return;
+        const dir =
+            wheelAccum >= WHEEL_THRESHOLD ? +1 :
+                wheelAccum <= -WHEEL_THRESHOLD ? -1 :
+                    0;
 
-        if (wheelAccum >= WHEEL_THRESHOLD) {
-            wheelAccum = 0;
-            wheelCooldown = true;
-            step(+1);
-            setTimeout(() => (wheelCooldown = false), COOLDOWN_MS);
-        } else if (wheelAccum <= -WHEEL_THRESHOLD) {
-            wheelAccum = 0;
-            wheelCooldown = true;
-            step(-1);
-            setTimeout(() => (wheelCooldown = false), COOLDOWN_MS);
-        }
+        if (!dir) return;
+
+        step(dir);
+        gestureStepped = true;
+        wheelAccum = 0;
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
 
-    // init
+    // -------------------------
+    // INIT / RESIZE
+    // -------------------------
     setActiveIndex(getActiveIndex());
 
     window.addEventListener('resize', () => {
-        locked = false;
-        snappedOnce = false;
-        wheelAccum = 0;
-        wheelCooldown = false;
+        resetGesture();
     });
-
 
 /*Show more / less*/
     const list = document.querySelector('.about__list');

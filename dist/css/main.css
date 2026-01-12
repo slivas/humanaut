@@ -5,8 +5,8 @@
   box-sizing: border-box;
 }
 
-ul[class],
-ol[class] {
+ul,
+ol {
   padding: 0;
 }
 
@@ -193,10 +193,10 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 }
 @media (min-width: 768px) {
   .hero h1 {
-    max-width: 724px;
+    max-width: 730px;
     margin-right: auto;
     margin-left: auto;
-    font-size: 70px;
+    font-size: 88px;
   }
 }
 @media (min-width: 1024px) {
@@ -1446,8 +1446,8 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .about h2 {
   margin-bottom: 14px;
   color: #FF7348;
-  font-weight: 400;
   font-size: 36px;
+  font-weight: 500;
   text-transform: uppercase;
 }
 @media (min-width: 768px) {
@@ -1983,10 +1983,16 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
     background-position: center;
   }
 }
+@media (min-width: 1440px) {
+  .reviews .container {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+}
 .reviews h2 {
   margin-bottom: 16px;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: uppercase;
   color: #FF7348;
   text-align: center;
@@ -2303,13 +2309,19 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
     padding-bottom: 150px;
   }
 }
+@media (min-width: 1440px) {
+  .faq .container {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+}
 .faq h2 {
   margin-bottom: 40px;
   color: #FF7348;
   text-transform: uppercase;
   text-align: center;
   font-size: 33px;
-  font-weight: 600;
+  font-weight: 500;
 }
 @media (min-width: 768px) {
   .faq h2 {
@@ -2466,7 +2478,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .health-optimization h2 {
   margin-bottom: 18px;
   font-size: 33px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   color: #141B1D;
 }

@@ -2107,11 +2107,16 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .reviews__annotation {
   margin-top: 48px;
   line-height: 1.4;
+  text-align: center;
 }
 .reviews__annotation-inner {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
+}
+.reviews__annotation-toggle {
+  margin-top: 16px;
+  text-align: center;
 }
 
 .cta {

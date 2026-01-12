@@ -152,11 +152,17 @@
   &__annotation {
     margin-top: 48px;
     line-height: 1.4;
+    text-align: center;
 
     &-inner {
       display: flex;
       flex-direction: column;
       row-gap: 12px;
+    }
+
+    &-toggle {
+      margin-top: 16px;
+      text-align: center;
     }
   }
 }

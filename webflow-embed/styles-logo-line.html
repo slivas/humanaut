@@ -1,54 +1,62 @@
 <style>
-  /* Logo Line Marquee Animation */
+  /* Clean Logo Line Marquee - Fresh Start */
 
-  /* Track container - must be flex row */
-  .testartem .logo-line__track,
-  .logo-line__track {
-    display: flex !important;
-    flex-direction: row !important;
-    width: max-content !important;
-    min-width: 200% !important; /* Ensure it's wide enough */
-    will-change: transform !important;
-    backface-visibility: hidden !important;
-    animation: logoMarqueeMove 30s linear infinite !important;
-    transform: translateZ(0) !important;
+  .logo-line {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    overflow: hidden;
   }
 
-  /* Animation keyframes */
-  @keyframes logoMarqueeMove {
+  @media (min-width: 1280px) {
+    .logo-line {
+      padding-top: 200px;
+      padding-bottom: 30px;
+    }
+  }
+
+  .logo-line__viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .logo-line__track {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    animation: scrollLogos 40s linear infinite;
+  }
+
+  @keyframes scrollLogos {
     0% {
-      transform: translate3d(0, 0, 0) !important;
+      transform: translateX(0);
     }
     100% {
-      transform: translate3d(-50%, 0, 0) !important;
+      transform: translateX(-50%);
     }
   }
 
-  /* Lists side by side */
-  .testartem .logo-line__list,
   .logo-line__list {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: var(--marquee-gap, 20px) !important;
-    flex: 0 0 auto !important;
-    flex-shrink: 0 !important;
-    width: auto !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
   }
 
-  /* Logos */
-  .testartem .logo-line__logo,
   .logo-line__logo {
-    flex: 0 0 auto !important;
-    flex-shrink: 0 !important;
-    display: block !important;
+    max-height: 61px;
+    width: auto;
+    flex-shrink: 0;
+    display: block;
+    object-fit: contain;
   }
 
-  /* Viewport */
-  .testartem .logo-line__viewport,
-  .logo-line__viewport {
-    overflow: hidden !important;
-    width: 100% !important;
-    position: relative !important;
+  @media (min-width: 1024px) {
+    .logo-line__logo {
+      max-height: 136px;
+    }
+    .logo-line__list {
+      gap: 20px;
+    }
   }
 </style>

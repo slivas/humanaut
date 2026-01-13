@@ -75,7 +75,12 @@
     font-family: 'Darker Grotesque', sans-serif !important;
     line-height: 1 !important;
   }
-
+  .testartem .footer {
+    font-family: 'Darker Grotesque', sans-serif !important;
+  }
+  .testartem nav {
+    font-family: 'Darker Grotesque', sans-serif !important;
+  }
   .testartem .container {
     max-width: 1600px !important;
     width: 100% !important;
@@ -83,6 +88,12 @@
     margin-left: auto !important;
     padding-right: 20px !important;
     padding-left: 20px !important;
+  }
+  .button.navbar-button.w-button {
+    color: #f3f3f3 !important;
+  }
+  .button.navbar-button.navbar-login-button.w-button {
+    color: #151515 !important;
   }
 
   /*Components*/
@@ -249,14 +260,34 @@
   .testartem .implementation {
     background-color: #464b4d !important;
     color: #fff !important;
+    position: relative !important;
+    min-height: 100vh !important;
   }
   @media (min-width: 1024px) {
     .testartem .implementation {
-      background-color: transparent !important;
+      background-color: #b9b9b9 !important;
+      min-height: 530vh !important;
     }
   }
   .testartem .implementation__inner {
     position: relative !important;
+    background-color: #464b4d !important;
+  }
+  @media (min-width: 1024px) {
+    .testartem .implementation__inner {
+      position: sticky !important;
+      top: 0 !important;
+      min-height: 720px !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+  }
+  @media (min-width: 1600px) {
+    .testartem .implementation__inner {
+      min-height: 820px !important;
+    }
   }
   .testartem .implementation__header {
     padding: 20px !important;
@@ -378,21 +409,39 @@
       font-weight: 500 !important;
     }
   }
-  .testartem .implementation .item-title-4 {
+  .testartem .implementation .implementation__inner .item-title-4 {
     font-size: 23px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-title-4 {
+    .testartem .implementation .implementation__inner .item-title-4 {
       font-size: 26px !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-title-4 {
+    .testartem .implementation .implementation__inner .item-title-4 {
       font-size: 23px !important;
     }
   }
   @media (min-width: 1440px) {
-    .testartem .implementation .item-title-4 {
+    .testartem .implementation .implementation__inner .item-title-4 {
+      font-size: 45px !important;
+    }
+  }
+  .testartem .implementation .implementation__inner .item-title-5 {
+    font-size: 23px !important;
+  }
+  @media (min-width: 768px) {
+    .testartem .implementation .implementation__inner .item-title-5 {
+      font-size: 26px !important;
+    }
+  }
+  @media (min-width: 1024px) {
+    .testartem .implementation .implementation__inner .item-title-5 {
+      font-size: 23px !important;
+    }
+  }
+  @media (min-width: 1440px) {
+    .testartem .implementation .implementation__inner .item-title-5 {
       font-size: 45px !important;
     }
   }
@@ -506,13 +555,13 @@
       object-position: calc(50% - 140px) top !important;
     }
   }
-  .testartem .implementation .item-1-active .item-title-1 {
+  .testartem .implementation .implementation__inner.item-1-active .item-title-1 {
     display: block !important;
   }
-  .testartem .implementation .item-1-active .item-1 {
+  .testartem .implementation .implementation__inner.item-1-active .item-1 {
     opacity: 1 !important;
   }
-  .testartem .implementation .item-1-active .marker .name__item-1 {
+  .testartem .implementation .implementation__inner.item-1-active .marker .name__item-1 {
     position: relative !important;
     display: flex !important;
     width: auto !important;
@@ -524,100 +573,100 @@
     pointer-events: auto !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-1-active .marker .name__item-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker .name__item-1 {
       padding-left: 80px !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-1-active .marker .name__item-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker .name__item-1 {
       top: -4px !important;
       left: -22px !important;
       align-items: flex-end !important;
     }
   }
-  .testartem .implementation .item-1-active .marker-1 {
+  .testartem .implementation .implementation__inner.item-1-active .marker-1 {
     top: 175px !important;
     left: calc(50% - 74px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-1-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-1 {
       left: calc(50% + 16px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-1-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-1 {
       left: calc(50% + 33px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-1-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-1 {
       top: 236px !important;
       left: calc(50% + 38px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-1-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-1 {
       top: 282px !important;
     }
   }
-  .testartem .implementation .item-1-active .marker-2 {
+  .testartem .implementation .implementation__inner.item-1-active .marker-2 {
     top: 390px !important;
     left: calc(50% - 68px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-1-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-2 {
       left: calc(50% + 24px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-1-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-2 {
       top: 404px !important;
       left: calc(50% + 40px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-1-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-2 {
       top: 500px !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-1-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-2 {
       top: 576px !important;
     }
   }
-  .testartem .implementation .item-1-active .marker-3 {
+  .testartem .implementation .implementation__inner.item-1-active .marker-3 {
     top: 256px !important;
     left: calc(50% + 65px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-1-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-3 {
       left: calc(50% + 190px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-1-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-3 {
       left: calc(50% + 256px) !important;
       top: 278px !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-1-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-3 {
       top: 350px !important;
       left: calc(50% + 280px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-1-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-1-active .marker-3 {
       top: 400px !important;
     }
   }
-  .testartem .implementation .item-2-active .item-title-2 {
+  .testartem .implementation .implementation__inner.item-2-active .item-title-2 {
     display: block !important;
   }
-  .testartem .implementation .item-2-active .item-2 {
+  .testartem .implementation .implementation__inner.item-2-active .item-2 {
     opacity: 1 !important;
   }
-  .testartem .implementation .item-2-active .marker .name__item-2 {
+  .testartem .implementation .implementation__inner.item-2-active .marker .name__item-2 {
     position: relative !important;
     display: flex !important;
     width: auto !important;
@@ -629,117 +678,122 @@
     pointer-events: auto !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-2-active .marker .name__item-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker .name__item-2 {
       padding-left: 80px !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-2-active .marker .name__item-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker .name__item-2 {
       top: -4px !important;
       left: -22px !important;
       align-items: flex-end !important;
     }
   }
-  .testartem .implementation .item-2-active .marker-1 {
+  .testartem .implementation .implementation__inner.item-2-active .marker-1 {
     top: 90px !important;
     left: calc(50% - 112px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-2-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-1 {
       left: calc(50% - 50px) !important;
       top: 100px !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-2-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-1 {
       left: calc(50% - 42px) !important;
       top: 90px !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-2-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-1 {
       left: calc(50% - 58px) !important;
       top: 126px !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-2-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-1 {
       top: 150px !important;
     }
   }
-  .testartem .implementation .item-2-active .marker-2 {
+  .testartem .implementation .implementation__inner.item-2-active .marker-2 {
     top: 225px !important;
     left: calc(50% + 134px) !important;
     flex-direction: row-reverse !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-2-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-2 {
       top: 260px !important;
       left: calc(50% + 222px) !important;
       flex-direction: row !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-2-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-2 {
       top: 340px !important;
       left: calc(50% + 290px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-2-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-2 {
       top: 400px !important;
       left: calc(50% + 330px) !important;
     }
   }
   @media (max-width: 767px) {
-    .testartem .implementation .item-2-active .marker-2 .name__item-2 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-2 .name__item-2 {
       margin-left: 0 !important;
       margin-right: -60px !important;
       padding-left: 0 !important;
       padding-right: 60px !important;
     }
   }
-  .testartem .implementation .item-2-active .marker-2__img {
+  .testartem .implementation .implementation__inner.item-2-active .marker-2__img {
     margin-right: 0 !important;
     margin-left: -18px !important;
   }
-  .testartem .implementation .item-2-active .marker-3 {
+  .testartem .implementation .implementation__inner.item-2-active .marker-3 {
     top: 380px !important;
     left: calc(50% - 88px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-2-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-3 {
       top: 365px !important;
       left: calc(50% - 26px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-2-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-3 {
       left: calc(50% - 7px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-2-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-3 {
       top: 490px !important;
       left: calc(50% - 20px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-2-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-2-active .marker-3 {
       top: 570px !important;
       left: calc(50% - 26px) !important;
     }
   }
-  .testartem .implementation .item-2-active .implementation__nav-btn svg path {
+  .testartem
+    .implementation
+    .implementation__inner.item-2-active
+    .implementation__nav-btn
+    svg
+    path {
     stroke: #7b7b7d !important;
   }
-  .testartem .implementation .item-3-active .item-title-3 {
+  .testartem .implementation .implementation__inner.item-3-active .item-title-3 {
     display: block !important;
   }
-  .testartem .implementation .item-3-active .item-3 {
+  .testartem .implementation .implementation__inner.item-3-active .item-3 {
     opacity: 1 !important;
   }
-  .testartem .implementation .item-3-active .marker .name__item-3 {
+  .testartem .implementation .implementation__inner.item-3-active .marker .name__item-3 {
     position: relative !important;
     display: flex !important;
     width: auto !important;
@@ -751,97 +805,102 @@
     pointer-events: auto !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-3-active .marker .name__item-3 {
+    .testartem .implementation .implementation__inner.item-3-active .marker .name__item-3 {
       padding-left: 80px !important;
     }
   }
-  .testartem .implementation .item-3-active .marker-1 {
+  .testartem .implementation .implementation__inner.item-3-active .marker-1 {
     top: 90px !important;
     left: calc(50% - 118px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-3-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-1 {
       top: 50px !important;
       left: calc(50% + 30px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-3-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-1 {
       top: 80px !important;
       left: calc(50% + 50px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-3-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-1 {
       top: 110px !important;
       left: calc(50% + 74px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-3-active .marker-1 .name__item-3 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-1 .name__item-3 {
       top: -4px !important;
       left: -30px !important;
       align-items: flex-end !important;
     }
   }
-  .testartem .implementation .item-3-active .marker-2 {
+  .testartem .implementation .implementation__inner.item-3-active .marker-2 {
     top: 320px !important;
     left: calc(50% - 46px) !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-3-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-2 {
       top: 300px !important;
       left: calc(50% + 96px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-3-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-2 {
       left: calc(50% + 106px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-3-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-2 {
       top: 390px !important;
       left: calc(50% + 134px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-3-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-2 {
       top: 460px !important;
       left: calc(50% + 150px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-3-active .marker-2 .name__item-3 {
+    .testartem .implementation .implementation__inner.item-3-active .marker-2 .name__item-3 {
       top: 12px !important;
       left: -20px !important;
       align-items: flex-start !important;
     }
   }
-  .testartem .implementation .item-3-active .marker-3 {
+  .testartem .implementation .implementation__inner.item-3-active .marker-3 {
     display: none !important;
   }
-  .testartem .implementation .item-3-active .implementation__nav-btn svg path {
+  .testartem
+    .implementation
+    .implementation__inner.item-3-active
+    .implementation__nav-btn
+    svg
+    path {
     stroke: #7b7b7d !important;
   }
-  .testartem .implementation .item-4-active .item-title-4 {
+  .testartem .implementation .implementation__inner.item-4-active .item-title-4 {
     display: block !important;
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-4-active .item-title-4 {
+    .testartem .implementation .implementation__inner.item-4-active .item-title-4 {
       font-size: 42px !important;
     }
   }
   @media (min-width: 1440px) {
-    .testartem .implementation .item-4-active .item-title-4 {
+    .testartem .implementation .implementation__inner.item-4-active .item-title-4 {
       max-width: 436px !important;
       font-size: 55px !important;
     }
   }
-  .testartem .implementation .item-4-active .item-4 {
+  .testartem .implementation .implementation__inner.item-4-active .item-4 {
     opacity: 1 !important;
   }
-  .testartem .implementation .item-4-active .marker .name__item-4 {
+  .testartem .implementation .implementation__inner.item-4-active .marker .name__item-4 {
     position: relative !important;
     display: flex !important;
     width: auto !important;
@@ -852,7 +911,7 @@
     visibility: visible !important;
     pointer-events: auto !important;
   }
-  .testartem .implementation .item-4-active .marker-1 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-1 {
     top: 180px !important;
     left: calc(50% + 53px) !important;
     width: 251px !important;
@@ -861,13 +920,13 @@
     align-items: start !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 {
       top: 184px !important;
       left: calc(50% + 185px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 {
       width: 460px !important;
       top: 170px !important;
       left: calc(50% + 280px) !important;
@@ -875,23 +934,23 @@
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-4-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 {
       top: 238px !important;
       left: calc(50% + 310px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-4-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 {
       top: 280px !important;
       left: calc(50% + 330px) !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-1 .name__item-4 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-1 .name__item-4 {
     margin-bottom: -60px !important;
     padding-bottom: 60px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-1 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 .name__item-4 {
       top: 32px !important;
       left: 40px !important;
       max-width: 234px !important;
@@ -899,60 +958,60 @@
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-4-active .marker-1 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 .name__item-4 {
       left: 100px !important;
       max-width: 400px !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-1 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-1 .name__item-4 {
       left: 100px !important;
       max-width: 400px !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-1__img {
+  .testartem .implementation .implementation__inner.item-4-active .marker-1__img {
     margin-top: -30px !important;
     margin-left: 60px !important;
     margin-right: 0 !important;
   }
-  .testartem .implementation .item-4-active .marker-2 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-2 {
     top: 320px !important;
     left: calc(50% + 112px) !important;
     flex-direction: row-reverse !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 {
       top: 308px !important;
       left: calc(50% + 316px) !important;
       flex-direction: row !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 {
       top: 304px !important;
       left: calc(50% + 300px) !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-4-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 {
       top: 400px !important;
       left: calc(50% + 374px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-4-active .marker-2 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 {
       top: 450px !important;
       left: calc(50% + 426px) !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-2 .name__item-4 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-2 .name__item-4 {
     margin-left: 0 !important;
     margin-right: -60px !important;
     padding-left: 0 !important;
     padding-right: 60px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-2 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 .name__item-4 {
       top: 0 !important;
       left: -14px !important;
       padding-right: 80px !important;
@@ -960,101 +1019,106 @@
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-2 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-2 .name__item-4 {
       left: -10px !important;
       padding-right: 0 !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-2__img {
+  .testartem .implementation .implementation__inner.item-4-active .marker-2__img {
     margin-left: -10px !important;
     margin-right: 0 !important;
   }
-  .testartem .implementation .item-4-active .marker-3 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-3 {
     top: 390px !important;
     left: calc(50% + 30px) !important;
     flex-direction: row-reverse !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 {
       top: 386px !important;
       left: calc(50% + 232px) !important;
       flex-direction: row !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 {
       left: calc(50% + 210px) !important;
       align-items: flex-end !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-4-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 {
       top: 505px !important;
       left: calc(50% + 268px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-4-active .marker-3 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 {
       top: 580px !important;
       left: calc(50% + 306px) !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-3 .name__item-4 {
+  .testartem .implementation .implementation__inner.item-4-active .marker-3 .name__item-4 {
     margin-left: 0 !important;
     margin-right: -60px !important;
     padding-left: 0 !important;
     padding-right: 60px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .marker-3 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 .name__item-4 {
       left: -14px !important;
       padding-right: 80px !important;
       transform: translateX(-50%) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-4-active .marker-3 .name__item-4 {
+    .testartem .implementation .implementation__inner.item-4-active .marker-3 .name__item-4 {
       left: -8px !important;
       padding-right: 0 !important;
       padding-top: 60px !important;
     }
   }
-  .testartem .implementation .item-4-active .marker-3__img {
+  .testartem .implementation .implementation__inner.item-4-active .marker-3__img {
     margin-left: -20px !important;
     margin-right: 0 !important;
   }
-  .testartem .implementation .item-4-active .implementation__header {
+  .testartem .implementation .implementation__inner.item-4-active .implementation__header {
     padding-bottom: 6px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-4-active .implementation__header {
+    .testartem .implementation .implementation__inner.item-4-active .implementation__header {
       padding-bottom: 26px !important;
     }
   }
-  .testartem .implementation .item-5-active .item-title-5 {
+  .testartem .implementation .implementation__inner.item-5-active .item-title-5 {
     display: block !important;
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-5-active .item-title-5 {
+    .testartem .implementation .implementation__inner.item-5-active .item-title-5 {
       font-size: 42px !important;
     }
   }
   @media (min-width: 1440px) {
-    .testartem .implementation .item-5-active .item-title-5 {
+    .testartem .implementation .implementation__inner.item-5-active .item-title-5 {
       max-width: 436px !important;
       font-size: 55px !important;
     }
   }
-  .testartem .implementation .item-5-active .item-5 {
+  .testartem .implementation .implementation__inner.item-5-active .item-5 {
     opacity: 1 !important;
   }
   @media (max-width: 1023px) {
-    .testartem .implementation .item-5-active .item-5 .implementation__img img {
+    .testartem
+      .implementation
+      .implementation__inner.item-5-active
+      .item-5
+      .implementation__img
+      img {
       -o-object-position: 80% top !important;
       object-position: 80% top !important;
     }
   }
-  .testartem .implementation .item-5-active .marker .name__item-5 {
+  .testartem .implementation .implementation__inner.item-5-active .marker .name__item-5 {
     position: relative !important;
     display: flex !important;
     width: auto !important;
@@ -1065,7 +1129,7 @@
     visibility: visible !important;
     pointer-events: auto !important;
   }
-  .testartem .implementation .item-5-active .marker-1 {
+  .testartem .implementation .implementation__inner.item-5-active .marker-1 {
     top: 92px !important;
     left: calc(50% + 53px) !important;
     width: 251px !important;
@@ -1074,56 +1138,56 @@
     align-items: start !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-5-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-5-active .marker-1 {
       top: 114px !important;
       left: calc(50% + 150px) !important;
     }
   }
   @media (min-width: 1024px) {
-    .testartem .implementation .item-5-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-5-active .marker-1 {
       top: 90px !important;
       left: calc(50% + 280px) !important;
       font-size: 32px !important;
     }
   }
   @media (min-width: 1280px) {
-    .testartem .implementation .item-5-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-5-active .marker-1 {
       top: 125px !important;
       left: calc(50% + 345px) !important;
     }
   }
   @media (min-width: 1600px) {
-    .testartem .implementation .item-5-active .marker-1 {
+    .testartem .implementation .implementation__inner.item-5-active .marker-1 {
       top: 156px !important;
       left: calc(50% + 384px) !important;
     }
   }
-  .testartem .implementation .item-5-active .marker-1 .name__item-5 {
+  .testartem .implementation .implementation__inner.item-5-active .marker-1 .name__item-5 {
     margin-top: -50px !important;
     padding-top: 28px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-5-active .marker-1 .name__item-5 {
+    .testartem .implementation .implementation__inner.item-5-active .marker-1 .name__item-5 {
       margin-top: -60px !important;
       margin-left: -10px !important;
     }
   }
-  .testartem .implementation .item-5-active .marker-1__img {
+  .testartem .implementation .implementation__inner.item-5-active .marker-1__img {
     margin-top: -30px !important;
     margin-left: 60px !important;
     margin-right: 0 !important;
   }
-  .testartem .implementation .item-5-active .marker-2 {
+  .testartem .implementation .implementation__inner.item-5-active .marker-2 {
     display: none !important;
   }
-  .testartem .implementation .item-5-active .marker-3 {
+  .testartem .implementation .implementation__inner.item-5-active .marker-3 {
     display: none !important;
   }
-  .testartem .implementation .item-5-active .implementation__header {
+  .testartem .implementation .implementation__inner.item-5-active .implementation__header {
     padding-bottom: 6px !important;
   }
   @media (min-width: 768px) {
-    .testartem .implementation .item-5-active .implementation__header {
+    .testartem .implementation .implementation__inner.item-5-active .implementation__header {
       padding-bottom: 26px !important;
     }
   }
@@ -1172,10 +1236,12 @@
     transform-origin: bottom !important;
     transition-duration: 0.25s !important;
     z-index: 3 !important;
+    border-radius: 16px !important;
   }
   @media (min-width: 1024px) {
     .testartem .implementation .modal {
       max-width: 440px !important;
+      border-radius: 22px !important;
     }
   }
   @media (min-width: 1024px) {
@@ -1339,7 +1405,7 @@
   .testartem .implementation .modal-inner {
     position: relative !important;
     padding: 18px 16px !important;
-    border-radius: 2px !important;
+    border-radius: 16px !important;
     background-color: rgba(70, 75, 77, 0.48) !important;
     -webkit-backdrop-filter: blur(17px) !important;
     backdrop-filter: blur(17px) !important;
@@ -1350,6 +1416,7 @@
   @media (min-width: 1024px) {
     .testartem .implementation .modal-inner {
       padding: 30px !important;
+      border-radius: 22px !important;
     }
   }
   .testartem .implementation .modal-inner::before {

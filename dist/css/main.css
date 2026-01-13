@@ -226,14 +226,34 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .implementation {
   background-color: #464B4D;
   color: #fff;
+  position: relative;
+  min-height: 100vh;
 }
 @media (min-width: 1024px) {
   .implementation {
-    background-color: transparent;
+    background-color: #b9b9b9;
+    min-height: 530vh;
   }
 }
 .implementation__inner {
   position: relative;
+  background-color: #464B4D;
+}
+@media (min-width: 1024px) {
+  .implementation__inner {
+    position: sticky;
+    top: 0;
+    min-height: 720px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+@media (min-width: 1600px) {
+  .implementation__inner {
+    min-height: 820px;
+  }
 }
 .implementation__header {
   padding: 20px;
@@ -708,7 +728,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   }
 }
 .implementation .item-2-active .implementation__nav-btn svg path {
-  stroke: #7B7B7D;
+  stroke: #7b7b7d;
 }
 .implementation .item-3-active .item-title-3 {
   display: block;
@@ -799,7 +819,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   display: none;
 }
 .implementation .item-3-active .implementation__nav-btn svg path {
-  stroke: #7B7B7D;
+  stroke: #7b7b7d;
 }
 .implementation .item-4-active .item-title-4 {
   display: block;
@@ -1149,10 +1169,12 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   transform-origin: bottom;
   transition-duration: 0.25s;
   z-index: 3;
+  border-radius: 16px;
 }
 @media (min-width: 1024px) {
   .implementation .modal {
     max-width: 440px;
+    border-radius: 22px;
   }
 }
 @media (min-width: 1024px) {
@@ -1316,7 +1338,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 .implementation .modal-inner {
   position: relative;
   padding: 18px 16px;
-  border-radius: 2px;
+  border-radius: 16px;
   background-color: rgba(70, 75, 77, 0.48);
   -webkit-backdrop-filter: blur(17px);
           backdrop-filter: blur(17px);
@@ -1327,6 +1349,7 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
 @media (min-width: 1024px) {
   .implementation .modal-inner {
     padding: 30px;
+    border-radius: 22px;
   }
 }
 .implementation .modal-inner::before {
@@ -1340,7 +1363,8 @@ h1, h2, h3, .font-darker-grotesque, .item-title {
   -webkit-mask-composite: xor;
           mask-composite: exclude;
 }
-.implementation .modal-inner span, .implementation .modal-inner .modal-title {
+.implementation .modal-inner span,
+.implementation .modal-inner .modal-title {
   font-family: "Darker Grotesque", sans-serif;
 }
 .implementation .modal-inner span {

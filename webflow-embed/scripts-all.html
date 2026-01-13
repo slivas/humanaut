@@ -97,7 +97,7 @@
 
     window.addEventListener('resize', closeAllModals);
 
-    /*Implementation slider*/
+    /*Implementation slider - Sticky scroll approach*/
     const section =
       document.querySelector('.testartem .implementation') ||
       document.querySelector('.implementation');
@@ -114,36 +114,31 @@
     // CONFIG
     // -------------------------
     const MAX_ITEMS = 5;
-
-    // Центр-режим (десктоп): "коридор" навколо центру екрана
-    // 0.18 => коридор ±18% висоти екрана (зроби 0.22 якщо хочеш ловити раніше)
-    const CENTER_BAND = 0.18;
-
-    // Скільки секції має бути видно, щоб lock вмикався (щоб не ловив "краєм")
-    const MIN_VISIBLE_RATIO = 0.55;
-
-    // Wheel tuning
-    const WHEEL_THRESHOLD = 90; // ↑ стабільніше (менше випадкових кроків)
-    const DELTA_CLAMP = 90;
-
-    // 1 крок на 1 жест тачпада
-    const GESTURE_END_MS = 160;
-
-    // -------------------------
-    // STATE
-    // -------------------------
-    let inBand = false;
-    let visibleEnough = false;
-
-    let wheelAccum = 0;
-    let gestureStepped = false;
-    let gestureTimer = null;
+    
+    // Множник висоти для scroll (480vh для слайдів = 4.8)
+    const SCROLL_HEIGHT_MULTIPLIER = 4.8;
+    // Додатковий простір після останнього слайду (50vh = 0.5)
+    const EXTRA_SPACE_AFTER_LAST = 0.5;
+    // Загальна висота = 530vh (4.8 + 0.5 = 5.3)
+    
+    // Отримуємо реальну висоту контенту
+    const getContentHeight = () => {
+        const body = section.querySelector('.implementation__body');
+        if (!body) return window.innerHeight;
+        return body.offsetHeight || body.getBoundingClientRect().height;
+    };
+    
+    // Висота секції для scroll = viewport height * (множник + додатковий простір)
+    // 480vh для слайдів + 50vh після останнього = 530vh загалом
+    const getScrollHeight = () => {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        return vh * (SCROLL_HEIGHT_MULTIPLIER + EXTRA_SPACE_AFTER_LAST);
+    };
 
     // -------------------------
     // HELPERS
     // -------------------------
     const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
-    const normDelta = (dy) => clamp(dy, -DELTA_CLAMP, DELTA_CLAMP);
 
     const getActiveIndex = () => {
       const m = inner.className.match(/item-(\d+)-active/);
@@ -163,49 +158,90 @@
       if (btnNext) btnNext.disabled = next === MAX_ITEMS;
     };
 
-    const step = (dir) => setActiveIndex(getActiveIndex() + dir);
-
-    const resetGesture = () => {
-      wheelAccum = 0;
-      gestureStepped = false;
-      if (gestureTimer) {
-        clearTimeout(gestureTimer);
-        gestureTimer = null;
-      }
+    const step = (dir) => {
+        const currentIndex = getActiveIndex();
+        const newIndex = clamp(currentIndex + dir, 1, MAX_ITEMS);
+        
+        // На мобільних просто перемикаємо items
+        if (isMobile()) {
+            setActiveIndex(newIndex);
+            return;
+        }
+        
+        // На десктопі - скролимо до правильного місця
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const sectionTop = section.offsetTop;
+        const scrollHeight = getScrollHeight();
+        
+        // Progress для нового item (0-1 для кожного item)
+        const itemProgress = (newIndex - 1) / (MAX_ITEMS - 1);
+        const targetScroll = sectionTop + (scrollHeight - vh) * itemProgress;
+        
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
     };
 
-    const markGesture = () => {
-      if (gestureTimer) clearTimeout(gestureTimer);
-      gestureTimer = setTimeout(() => {
-        gestureStepped = false;
-        wheelAccum = 0;
-        gestureTimer = null;
-      }, GESTURE_END_MS);
+    // Обчислюємо progress скролу всередині секції (0-1)
+    const getScrollProgress = () => {
+        if (isMobile()) return 0; // На мобільних не використовуємо scroll progress
+        
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const scrollHeight = getScrollHeight();
+        
+        // Коли секція починається (top = 0) -> progress = 0
+        // Коли секція закінчується (top = scrollHeight - vh) -> progress = 1
+        const sectionTop = section.offsetTop;
+        const currentScroll = window.scrollY;
+        const scrollStart = sectionTop;
+        const scrollEnd = sectionTop + scrollHeight - vh;
+        
+        if (currentScroll < scrollStart) return 0;
+        if (currentScroll > scrollEnd) return 1;
+        
+        return (currentScroll - scrollStart) / (scrollEnd - scrollStart);
     };
 
-    // Центр-умова: центр секції потрапив в "коридор" навколо центру екрану
-    const isInCenterBand = () => {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-
-      const secCenter = rect.top + rect.height / 2;
-      const viewCenter = vh / 2;
-
-      const band = vh * CENTER_BAND;
-
-      return Math.abs(secCenter - viewCenter) <= band;
+    // Оновлюємо активний item на основі scroll progress
+    const updateActiveItemFromScroll = () => {
+        if (isMobile()) return; // На мобільних не оновлюємо через scroll
+        
+        const progress = getScrollProgress();
+        
+        // Обчислюємо item index з урахуванням того, що останній слайд має додатковий простір
+        // Progress 0.0 -> item 1, progress ~0.906 (480/530) -> item 5, progress 1.0 -> item 5
+        // Перші 4 слайди розподілені на 480vh, останній слайд + 50vh = 530vh
+        const slidesProgress = SCROLL_HEIGHT_MULTIPLIER / (SCROLL_HEIGHT_MULTIPLIER + EXTRA_SPACE_AFTER_LAST); // ~0.906
+        
+        let itemIndex;
+        if (progress >= slidesProgress) {
+            // Останній слайд (5) активний від progress ~0.906 до 1.0
+            itemIndex = MAX_ITEMS;
+        } else {
+            // Перші 4 слайди розподілені на progress 0.0 - ~0.906
+            const normalizedProgress = progress / slidesProgress; // нормалізуємо до 0-1
+            itemIndex = Math.floor(normalizedProgress * (MAX_ITEMS - 1)) + 1;
+        }
+        
+        const clampedIndex = clamp(itemIndex, 1, MAX_ITEMS);
+        
+        // Оновлюємо тільки якщо змінився
+        if (clampedIndex !== getActiveIndex()) {
+            setActiveIndex(clampedIndex);
+        }
     };
 
     // -------------------------
     // BUTTONS
     // -------------------------
-    btnNext?.addEventListener('click', (e) => {
-      e.preventDefault();
-      step(+1);
+    btnNext?.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        step(+1); 
     });
-    btnPrev?.addEventListener('click', (e) => {
-      e.preventDefault();
-      step(-1);
+    btnPrev?.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        step(-1); 
     });
 
     // -------------------------
@@ -246,76 +282,34 @@
     );
 
     // -------------------------
-    // OBSERVER: видимість
+    // SCROLL LISTENER: оновлення активного item
     // -------------------------
-    const io = new IntersectionObserver(
-      (entries) => {
-        const e = entries[0];
-        visibleEnough = e.isIntersecting && e.intersectionRatio >= MIN_VISIBLE_RATIO;
-
-        // якщо майже вийшли — скидаємо, щоб не "тримало"
-        if (!e.isIntersecting || e.intersectionRatio < 0.2) {
-          resetGesture();
-        }
-      },
-      { threshold: [0, 0.2, MIN_VISIBLE_RATIO, 1] },
-    );
-
-    io.observe(section);
-
-    // -------------------------
-    // DESKTOP: WHEEL CENTER LOCK
-    // -------------------------
-    const onWheel = (e) => {
-      if (isMobile()) return;
-
-      // оновлюємо band по факту (без таймерів)
-      inBand = isInCenterBand();
-
-      // якщо не видно достатньо або не в центр-коридорі — відпускаємо сторінку
-      if (!visibleEnough || !inBand) {
-        resetGesture();
-        return;
-      }
-
-      const dy = normDelta(e.deltaY);
-      const idx = getActiveIndex();
-
-      // На краях — відпускаємо сторінку у "зовнішньому" напрямку
-      if ((idx === 1 && dy < 0) || (idx === MAX_ITEMS && dy > 0)) {
-        resetGesture();
-        return; // без preventDefault
-      }
-
-      // В межах — блокуємо вертикальний скрол
-      e.preventDefault();
-
-      // жест тачпада
-      markGesture();
-
-      // 1 крок на 1 жест
-      if (gestureStepped) return;
-
-      wheelAccum += dy;
-
-      const dir = wheelAccum >= WHEEL_THRESHOLD ? +1 : wheelAccum <= -WHEEL_THRESHOLD ? -1 : 0;
-
-      if (!dir) return;
-
-      step(dir);
-      gestureStepped = true;
-      wheelAccum = 0;
+    let scrollRafId = null;
+    const handleScroll = () => {
+        if (scrollRafId) return;
+        
+        scrollRafId = requestAnimationFrame(() => {
+            updateActiveItemFromScroll();
+            scrollRafId = null;
+        });
     };
 
-    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // -------------------------
     // INIT / RESIZE
     // -------------------------
     setActiveIndex(getActiveIndex());
+    updateActiveItemFromScroll(); // початковий стан
 
+    let resizeTimer = null;
     window.addEventListener('resize', () => {
-      resetGesture();
+        // Debounce resize для оптимізації
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            updateActiveItemFromScroll();
+            resizeTimer = null;
+        }, 150);
     });
 
     /*Show more / less*/

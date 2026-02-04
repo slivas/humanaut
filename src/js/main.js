@@ -307,13 +307,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const list = document.querySelector('.about__list');
     if (!list) return;
 
-// ✅ актуальні items
+    // ✅ актуальні items (в DOM-порядку)
     const getItems = () => [...list.querySelectorAll('.about__list-item')];
 
-// ✅ зберігаємо початковий DOM-порядок, щоб можна було відкотитись
+    // ✅ зберігаємо початковий DOM-порядок (для відкату на десктопі)
     const initialOrder = getItems();
 
-// ===== Mobile helpers =====
+    // ===== Mobile helpers =====
     function closeDesc(desc) {
         desc.classList.add('is-collapsed');
         desc.style.maxHeight = '0px';
@@ -329,14 +329,47 @@ document.addEventListener('DOMContentLoaded', () => {
         desc.style.removeProperty('max-height');
     }
 
-// ===== Reset states =====
+    // ===== Reset desktop classes =====
     function resetDesktopClasses() {
         list.classList.remove('is-expanded');
         getItems().forEach(li => li.classList.remove('is-active', 'is-left', 'is-right'));
     }
 
+    // ✅ Мобільна логіка:
+    // якщо елемент став is-active і він 2-й/4-й/6-й (тобто index 1/3/5),
+    // то попередній елемент отримує is-left
+    // і знімаємо is-left при закритті цього елемента
+    const leftByActiveItem = new WeakMap(); // activeLi -> prevLi
+
+    function applyMobileLeftByIndex(li, nowOpen) {
+        const items = getItems();
+
+        // Прибираємо старий is-left, який був поставлений саме через цей li
+        const prevWas = leftByActiveItem.get(li);
+        if (prevWas) {
+            prevWas.classList.remove('is-left');
+            leftByActiveItem.delete(li);
+        }
+
+        if (!nowOpen) return; // якщо закрили — на цьому все
+
+        const idx = items.indexOf(li);
+        if (idx < 0) return;
+
+        // "кожний другий" у списку: 2-й, 4-й, 6-й... => idx 1,3,5... (тобто (idx+1) % 2 === 0)
+        const isSecondInPairs = ((idx + 1) % 2 === 0);
+        if (!isSecondInPairs) return;
+
+        const prev = items[idx - 1];
+        if (!prev) return;
+
+        prev.classList.add('is-left');
+        leftByActiveItem.set(li, prev);
+    }
+
+    // ===== Apply states =====
     function applyMobileState() {
-        resetDesktopClasses();
+        list.classList.remove('is-expanded');
 
         getItems().forEach(li => {
             const desc = li.querySelector('.about__list-item--description');
@@ -345,14 +378,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             btn.style.display = 'inline-block';
 
-            const isOpen = btn.classList.contains('is-open');
+            const isOpen = li.classList.contains('is-active');
             isOpen ? openDesc(desc) : closeDesc(desc);
-
             btn.textContent = isOpen ? 'Read less' : 'Read more';
+
+            // на ініті теж можемо відновити is-left відповідно до індексу
+            if (isOpen) applyMobileLeftByIndex(li, true);
         });
     }
 
     function applyDesktopState() {
+        // чистимо мобільні "хвости", щоб не впливали на FLIP
+        getItems().forEach(li => li.classList.remove('is-left'));
+
         getItems().forEach(li => {
             const desc = li.querySelector('.about__list-item--description');
             const btn  = li.querySelector('.about__list-item--btn');
@@ -367,19 +405,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         resetDesktopClasses();
-
-        // ✅ повертаємо початковий порядок при переході на десктоп
         initialOrder.forEach(el => list.appendChild(el));
     }
 
-// ===== FLIP =====
+    // ===== FLIP =====
     function flipAnimate(container, mutate, duration = 520) {
         const els = Array.from(container.children);
-
         const first = new Map(els.map(el => [el, el.getBoundingClientRect()]));
 
         mutate();
-
         container.getBoundingClientRect(); // force layout
 
         const last = new Map(els.map(el => [el, el.getBoundingClientRect()]));
@@ -417,8 +451,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return duration;
     }
 
-// ===== Desktop click =====
+    // ===== Click handler =====
     list.addEventListener('click', (e) => {
+
         // ===== MOBILE =====
         if (isMobile()) {
             const btn = e.target.closest('.about__list-item--btn');
@@ -430,11 +465,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = li.querySelector('.about__list-item--description');
             if (!desc) return;
 
-            btn.classList.toggle('is-open');
-            const nowOpen = btn.classList.contains('is-open');
+            li.classList.toggle('is-active');
+            const nowOpen = li.classList.contains('is-active');
 
             nowOpen ? openDesc(desc) : closeDesc(desc);
             btn.textContent = nowOpen ? 'Read less' : 'Read more';
+
+            // ✅ ключова логіка: is-left на попередній для 2-го/4-го/6-го елемента
+            applyMobileLeftByIndex(li, nowOpen);
+
             return;
         }
 
@@ -445,11 +484,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeItem = img.closest('.about__list-item');
         if (!activeItem) return;
 
-        const itemsBefore = getItems();                 // DOM порядок ДО змін
+        const itemsBefore = getItems();
         const activeIndex = itemsBefore.indexOf(activeItem);
         const wasActive = activeItem.classList.contains('is-active');
 
-        // toggle OFF: повертаємо порядок + знімаємо класи (плавно через FLIP)
         if (wasActive) {
             flipAnimate(list, () => {
                 resetDesktopClasses();
@@ -458,30 +496,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // toggle ON: активний стає першим, інші роз'їжджаються
         flipAnimate(list, () => {
-            // reset
             resetDesktopClasses();
-
-            // 1) активний на перше місце
             list.prepend(activeItem);
-
-            // 2) активний клас
             activeItem.classList.add('is-active');
 
-            // 3) хто був ДО активного -> вліво, хто ПІСЛЯ -> вправо
             itemsBefore.forEach((item, i) => {
                 if (item === activeItem) return;
                 if (i < activeIndex) item.classList.add('is-left');
                 else item.classList.add('is-right');
             });
 
-            // 4) вмикаємо роз'їзд (CSS робить translateX для left/right)
             list.classList.add('is-expanded');
         }, 520);
     });
 
-// ===== transitionend тільки для мобільного опису =====
+    // ===== transitionend тільки для мобільного опису =====
     getItems().forEach(li => {
         const desc = li.querySelector('.about__list-item--description');
         if (!desc) return;
@@ -496,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-// ===== Init + resize =====
+    // ===== Init + resize mode switch =====
     let lastMode = isMobile() ? 'mobile' : 'desktop';
 
     function init() {
@@ -513,8 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         init();
     });
 
-
-    /*Logo line*/
+/*Logo line*/
     const root = document.querySelector('.logo-line');
     if (!root) return;
 
